@@ -5,7 +5,7 @@ calories  = {}
 count = 1
 sum_calories = 0
 
-with open('day1.txt') as f:
+with open('day1/day1.txt') as f:
     for line in f:
         if line != "\n":
             sum_calories += int(line.strip(string.ascii_letters))

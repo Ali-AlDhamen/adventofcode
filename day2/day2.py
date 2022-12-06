@@ -26,7 +26,7 @@ scores_part2 = {
 # A, X = Rock 1 | B,Y = Paper 2 | C,Z = Scissors 3
 total_points = 0
 total_points_part2 = 0
-with open('day2.txt') as f:
+with open('day2/day2.txt') as f:
     for line in f:
         line = line.strip()
         words = line.split()

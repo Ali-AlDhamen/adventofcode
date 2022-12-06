@@ -2,7 +2,7 @@
 
 total = 0
 
-with open('day4.txt') as f:
+with open('day4/day4.txt') as f:
     lines = f.readlines()
     for line in lines:
         line = line.strip()

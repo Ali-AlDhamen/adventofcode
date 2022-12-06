@@ -4,7 +4,7 @@ def day3(part):
     count = 0
     temp_list = []
     
-    with open('day3.txt') as f:
+    with open('day3/day3.txt') as f:
         lines = f.readlines()
         for line in lines:
             if part == 1:
