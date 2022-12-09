@@ -1,12 +1,13 @@
 
 data = []
-show = 0
-
 scores = []
-
-
 def v(lst):
-    return False not in lst
+    count = 0
+    for i in lst:
+        count +=1
+        if i:
+            break
+    return count
 
 
 with open("day8/day8.txt") as f:
@@ -16,11 +17,14 @@ with open("day8/day8.txt") as f:
     for i in range(len(data)):
         for j in range(len(data[i])):
             current = data[i][j]
-            if i == 0 or i == len(data) - 1 or j == 0 or j == len(data) - 1:
-                show += 1
-                continue
-            elif v([current > data[k][j] for k in range(i+1, len(data))]) or v([current > data[i][k] for k in range(j+1, len(data[i]))]) or v([current > data[k][j] for k in range(i-1, -1, -1)]) or v([current > data[i][k] for k in range(j-1, -1, -1)]):
-                show += 1
+            side1 = v([current <= data[k][j] for k in range(i+1, len(data))]) # down
+            side2 = v([current <= data[i][k] for k in range(j+1, len(data[i]))]) # right
+            side3 = v([current <= data[k][j] for k in range(i-1, -1, -1)]) # up
+            side4 = v([current <= data[i][k] for k in range(j-1, -1, -1)]) # left
+            score = side1 * side2 * side3 * side4 
+            scores.append(score)
+            
 
 
-print(show)
+print(max(scores))
+
