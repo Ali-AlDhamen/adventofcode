@@ -39,15 +39,19 @@ with open("day11/day11.txt") as f:
 
 result = [0, 0, 0, 0, 0, 0, 0 ,0]
 
-for round in range(20):
+mod = 1
+for monkey , monkey_items in monkeys.items():
+    mod *= int(monkey_items["divisible"])
+
+
+for round in range(10000):
     for monkey , monkey_stuff in monkeys.items():
         for item in monkey_stuff["items"]:
             item = int(item)
             op = monkey_stuff["operation"]
             item_str = " ".join(op).replace("old", "item")
             item = eval(item_str)
-            item //= 3
-            print(item)
+            item %=mod
             if item % int(monkey_stuff["divisible"]) == 0:
                 monkeys[f"Monkey {int(monkey_stuff['true'])}"]["items"].append(item)
                 
@@ -61,4 +65,3 @@ for round in range(20):
 
 result.sort()
 print(result[-1] * result[-2])
-
