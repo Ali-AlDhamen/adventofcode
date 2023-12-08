@@ -1,21 +1,28 @@
 with open("in.txt", 'r') as f:
-    seeds = list(map(int, f.readline().strip().split(" ")[1:]))
-    data = [line.strip() for line in f.readlines() if line.strip()]
-    exchange = {}
+    steps = f.read().strip().split("\n\n")
+
+
+    seeds = list(map(int, steps.pop(0).split(":")[1].split()))
+
     
-    for i, line in enumerate(data):
-        if not line[0].isdigit():
-            if exchange:
-                seeds = [exchange.get(seed, seed) for seed in seeds]
-                exchange = {}
-            continue  
+    for step in steps:
+        ranges = []
         
-        values = list(map(int, data[i].split(" ")))
-        des_start = values[0]
-        source_start = values[1]
-        length = values[2]  
-        for add in range(length):
-            if source_start+add not in exchange:
-                exchange[source_start+add] = des_start+add
-    seeds = [exchange.get(seed, seed) for seed in seeds]
+        for line in step.splitlines()[1:]:
+            ranges.append(list(map(int, line.split())))
+        
+        
+        new_seeds = []
+        for seed in seeds:
+            for start_dest, start_source, length in ranges:
+                if start_source <= seed < start_source + length:
+                    new_seeds.append(seed - start_source + start_dest)
+                    break
+            else:
+                new_seeds.append(seed)
+        seeds = new_seeds
+
+    
     print(min(seeds))
+
+    
